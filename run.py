@@ -73,9 +73,9 @@ while True:
         angry, happy, neutral, sad = prediction[0]
 
         # Set emotion_number, most greather value will be passed to emotion_dict
-        if angry > happy and angry > neutral and angry > sad:
+        if angry > happy: # and angry > neutral and angry > sad:
             emotion_number = 0
-        elif happy > angry and happy > neutral and happy > sad:
+        elif happy > angry: # and happy > neutral and happy > sad:
             emotion_number = 1
         elif neutral > angry and neutral > happy and neutral > sad:
             emotion_number = 2
@@ -83,19 +83,20 @@ while True:
             emotion_number = 3
 
         # Get index value(prediction array value from model_weight.h5)
-        # maxindex = int(np.argmax(prediction)) <- not used, bcos now we compare by akurasi yg paling tinggi, if we use this nnti bakal di bulaitn ke 0/1 so we can't used this.
+        maxindex = int(np.argmax(prediction)) # <- not used, bcos now we compare by akurasi yg paling tinggi, if we use this nnti bakal di bulaitn ke 0/1 so we can't used this.
 
+        print(maxindex)
         # Add text to rectangle overlay
         cv2.putText(
             frame,
-            emotion_dict[emotion_number],
+            emotion_dict[maxindex],
             (x+20, y-60),
             cv2.FONT_HERSHEY_SIMPLEX, 1,
             (255, 255, 255), 2,
             cv2.LINE_AA
         )
 
-        # Show image output
+    # Show image output
     cv2.imshow(
         'Video',
         cv2.resize(
